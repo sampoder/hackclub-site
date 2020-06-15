@@ -7,18 +7,18 @@ import {
   Heading,
   Icon,
   LargeButton,
-  OutlineButton,
+  // OutlineButton,
   Link as A,
   Section,
   Text,
   Sheet,
   theme
 } from '@hackclub/design-system'
-import getSeason from '@hackclub/season'
+// import getSeason from '@hackclub/season'
 import Link from 'components/Link'
 import Layout from 'components/Layout'
 import Nav from 'components/Nav'
-import AnnouncementBanner from 'components/AnnouncementBanner'
+// import AnnouncementBanner from 'components/AnnouncementBanner'
 import Photo from 'components/Photo'
 import { Headline, Highlight, Lead } from 'components/Content'
 import Footer from 'components/Footer'
@@ -41,20 +41,20 @@ const CTA = styled(LargeButton.withComponent(Link)).attrs({
   m: [1, 2],
   scale: true
 })`
-  background-image: ${props => theme.gradient(props.bg[0], props.bg[1])};
+  background-image: ${(props) => theme.gradient(props.bg[0], props.bg[1])};
   text-transform: uppercase;
 `
-const SecondaryCTA = styled(OutlineButton.withComponent(Link)).attrs({
-  chevronRight: true,
-  bg: 'white',
-  color: 'black',
-  fontSize: 2,
-  m: [1, 2],
-  scale: true
-})`
-  background-color: rgba(0, 0, 0, 0.325);
-  text-transform: uppercase;
-`
+// const SecondaryCTA = styled(OutlineButton.withComponent(Link)).attrs({
+//   chevronRight: true,
+//   bg: 'white',
+//   color: 'black',
+//   fontSize: 2,
+//   m: [1, 2],
+//   scale: true
+// })`
+//   background-color: rgba(0, 0, 0, 0.325);
+//   text-transform: uppercase;
+// `
 
 const shadows = css`
   h1,
@@ -78,12 +78,12 @@ const photoSection = css`
 const PhotoHeader = styled(Section).attrs({ px: 0 })`
   background-color: ${theme.colors.primary};
   background-image: linear-gradient(
-      ${props =>
+      ${(props) =>
         props.inverted
           ? 'rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)'
           : 'rgba(0, 0, 0, 0.325), rgba(0, 0, 0, 0.5)'}
     ),
-    url(${props => props.src});
+    url(${(props) => props.src});
   background-position: center;
   ${photoSection};
   ${shadows};
@@ -123,7 +123,7 @@ const PhotoFeature = styled(TextFeature).attrs({
   color: 'white'
 })`
   position: relative;
-  ${props =>
+  ${(props) =>
     props.inverted
       ? css`
           justify-content: flex-end !important;
@@ -256,7 +256,7 @@ const Cols = styled(Box)`
   grid-gap: ${theme.space[3]}px;
   ${theme.mediaQueries.sm} {
     grid-gap: ${theme.space[4]}px;
-    grid-template-columns: ${props => props.cols};
+    grid-template-columns: ${(props) => props.cols};
   }
   > div,
   > section > div {
@@ -344,7 +344,7 @@ const SectionLead = styled(Lead).attrs({
 
 const like = { underline: true, target: '_blank' }
 A.link = A.withComponent(Link)
-const Like = props => <A {...like} {...props} />
+const Like = (props) => <A {...like} {...props} />
 
 const contentContainer = {
   maxWidth: 72,
@@ -369,19 +369,13 @@ export default () => (
     <Nav color="slate" fixed />
     <Box mt={[44, 55]} p={3} bg="snow">
       <PhotoHeader
-        style={{ paddingTop: 48 }}
-        py={[3, 5, 6]}
+        pt={[3, 5, 6, 7]}
+        pb={[3, 5, 6]}
         src={require('../../static/photos/hackpenn_full.jpg')}
         aria-label="Students at a coding event"
         align={['left', 'center']}
         color="white"
       >
-        <Container px={3}>
-          <AnnouncementBanner href="/covid19/">
-            🦠 We’ve released our guidelines for organizers in response to
-            COVID-19 →
-          </AnnouncementBanner>
-        </Container>
         <Container width={1} maxWidth={72} px={3} my={[3, 4]}>
           <Headline maxWidth={48} mx="auto" fontSize={[6, 7, 8]} mb={2}>
             We’re high schoolers leading the best coding clubs
@@ -393,13 +387,9 @@ export default () => (
             <OnlyDesktop>
               <br />
             </OnlyDesktop>
-            <strong>
-              During COVID-19, join the community on Slack to participate.
-            </strong>{' '}
-            We’re also still accepting club applications on a rolling basis.
+            We’re accepting club applications on a rolling basis.
           </SectionLead>
-          <SecondaryCTA to="https://apply.hackclub.com">Apply now</SecondaryCTA>
-          <CTA to="https://hackclub.com/community">Join our Slack</CTA>
+          <CTA to="https://apply.hackclub.com">Apply now</CTA>
         </Container>
       </PhotoHeader>
     </Box>

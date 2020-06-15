@@ -4,19 +4,16 @@
   "trailingSlash": true,
   "redirects": [
     { "source": "/c9/", "destination": "/cloud9_setup/" },
-    { "source": "/slack/", "destination": "/community/" },
-    { "source": "/slack_invite/", "destination": "/community/" },
-    { "source": "/workshops/slack/", "destination": "/community/" },
+    { "source": "/slack_invite/", "destination": "/slack/" },
+    { "source": "/workshops/slack/", "destination": "/slack/" },
+    { "source": "/community/", "destination": "/slack/" },
     { "source": "/hack_camp/", "destination": "/camp/" },
     { "source": "/repl/", "destination": "/" },
     { "source": "/coc/", "destination": "/conduct/" },
     { "source": "/code_of_conduct/", "destination": "/conduct/" },
-    {
-      "source": "/hackathons/",
-      "destination": "https://hackathons.hackclub.com"
-    },
     { "source": "/finder/", "destination": "https://finder.hackclub.com" },
     { "source": "/apply/", "destination": "https://apply.hackclub.com" },
+    { "source": "/icons/", "destination": "https://icons.hackclub.com" },
     {
       "source": "/admin/",
       "destination": "https://5c8804a629a378000833619c--hackclub.netlify.com/admin/"
@@ -37,10 +34,18 @@
     },
     {
       "source": "/workshops/(.*)/",
-      "destination": "https://workshops.hackclub.com/$1"
+      "destination": "https://workshops.hackclub.com/$1/"
     }
   ],
   "rewrites": [
+    {
+      "source": "/",
+      "destination": "https://v3.hackclub.com/"
+    },
+    {
+      "source": "/api/(.*)/",
+      "destination": "https://v3.hackclub.com/api/$1"
+    },
     {
       "source": "/covid19/",
       "destination": "https://workshops.hackclub.com/covid19/"
@@ -52,9 +57,33 @@
     {
       "source": "/conduct/",
       "destination": "https://workshops.hackclub.com/conduct/"
+    },
+    {
+      "source": "/vip-newsletters/",
+      "destination": "https://workshops.hackclub.com/vip-newsletters/"
+    },
+    {
+      "source": "/vip-newsletters/(.*)",
+      "destination": "https://workshops.hackclub.com/vip-newsletters/$1"
+    },
+    {
+      "source": "/transparency/may-2020/",
+      "destination": "https://workshops.hackclub.com/transparency-may/"
+    },
+    {
+      "source": "/map/",
+      "destination": "https://hc-map.now.sh/"
+    },
+    {
+      "source": "/(.*)/",
+      "destination": "https://v3.hackclub.com/$1/"
     }
   ],
   "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
+    },
     {
       "source": "/banners/(.*)",
       "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
@@ -64,7 +93,5 @@
       "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
     }
   ],
-  "github": {
-    "silent": true
-  }
+  "github": { "silent": true }
 }

@@ -98,13 +98,18 @@ const Document = ({ name, cost }) => (
   </ModuleDetailsDocument>
 )
 
-const Laptop = styled.div`
+const Laptop = styled.a`
+  display: block;
   width: 100%;
   height: 100%;
+  min-height: 16rem;
   background-size: auto 115%;
-  background-image: url('/bank/mac.png');
+  background-image: url('/bank/laptop-light.png');
   background-position: center top;
   background-repeat: no-repeat;
+  @media (prefers-color-scheme: dark) {
+    background-image: url('/bank/laptop-dark.png');
+  }
   ${theme.mediaQueries.md} {
     grid-row: span 2;
     grid-column: span 2;
@@ -115,11 +120,11 @@ export default () => (
   <Base pt={[5, 6, 7]} pb={[4, 5, 6]} color="snow">
     <Modules px={3}>
       <Box>
-        <Headline>A full-stack toolkit for organizing events.</Headline>
+        <Headline>A full-stack toolkit for organizing anything.</Headline>
         <Lead fontSize={[3, 4]} color="muted" maxWidth={48} mx={0}>
           Invoice sponsors, issue debit cards to your team, and view history.
           <br />
-          Ongoing support so you can focus on your event, not the paperwork.
+          Ongoing support so you can focus on organizing, not the paperwork.
         </Lead>
       </Box>
       <Box>
@@ -139,7 +144,11 @@ export default () => (
           />
         </ModuleDetails>
       </Box>
-      <Laptop />
+      <Laptop
+        href="https://bank.hackclub.com/hackpenn"
+        target="_blank"
+        title="See Hack Pennsylvania’s finances in public"
+      />
       <Module
         icon="card"
         name="Debit cards"
@@ -174,14 +183,14 @@ export default () => (
         body="Download liability + photo forms custom written by expert lawyers."
       />
       <Module
-        icon="settings"
-        name="Manage your finances"
-        body="Add notes to transactions, export data, issue reimbursements."
+        icon="explore"
+        name="Transparency Mode"
+        body="If you’d like, show your finances on public pages for full transparency."
       />
       <Module
         icon="google"
         name="G Suite accounts"
-        body="Get free G Suite accounts & email addresses (like joy@hackpenn.com) for everyone."
+        body="Get instant, free G Suite & team email addresses (like joy@hackpenn.com)."
       />
       <Module
         icon="support"

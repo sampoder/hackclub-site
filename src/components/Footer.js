@@ -15,14 +15,14 @@ import { Link } from 'gatsby'
 import PureImagination from 'components/PureImagination'
 
 const Base = styled(Box.withComponent('footer'))`
-  background: ${props =>
+  background: ${(props) =>
     props.dark
       ? `${theme.colors.darker} radial-gradient(${hexa(
           theme.colors.black,
           0.5
         )} 1px, transparent 1px)`
       : `${theme.colors.snow} url('/pattern.svg') repeat`};
-  ${props =>
+  ${(props) =>
     props.dark &&
     css`
       background-size: ${theme.space[4]}px ${theme.space[4]}px;
@@ -115,12 +115,12 @@ const Footer = ({ dark = false, children, ...props }) => (
             Hack Club
           </Heading.h2>
           <Pages>
-            <Link to="/" children="Home" />
             <a href="https://apply.hackclub.com/" children="Apply" />
             <Link to="/donate/" children="Donate" />
             <Link to="/team/" children="Team" />
             <Link to="/community/" children="Community" />
             <Link to="/philosophy/" children="Philosophy" />
+            <a href="https://hackclub.com/brand/" children="Branding" />
           </Pages>
         </Box>
         <Box>
@@ -128,12 +128,15 @@ const Footer = ({ dark = false, children, ...props }) => (
             Resources
           </Heading.h2>
           <Pages>
-            <a href="/conduct/" children="Code of Conduct" />
+            <a
+              href="https://hackclub.com/conduct/"
+              children="Code of Conduct"
+            />
             <a href="https://workshops.hackclub.com/" children="Workshops" />
             <Link to="/night/" children="Hack Night" />
             <a href="https://hackathons.hackclub.com/" children="Hackathons" />
-            <a href="https://help.hackclub.com/" children="Guides" />
             <Link to="/bank/" children="Bank" />
+            <a href="https://hackclub.com/map/" children="Map" />
           </Pages>
         </Box>
         <Box>
@@ -164,10 +167,12 @@ const Footer = ({ dark = false, children, ...props }) => (
             <br />
             <Text.span color="muted" children="(call toll-free)" />
           </Text>
+          <Text mt={[3, 4]}>
+            <a href="https://hackclub.com/press/" children="Press Inquiries" />
+          </Text>
         </Box>
       </Columns>
       <Box fontSize={2} mt={[3, 4]}>
-        <Text>Office: 576 Natoma St, San Francisco, CA 94103</Text>
         <Text>
           Mail: 8605 Santa Monica Blvd #86294, West Hollywood, CA 90069
         </Text>

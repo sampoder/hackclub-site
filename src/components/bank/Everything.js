@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import {
+  Avatar,
+  Badge,
   Box,
   Container,
   Link as A,
@@ -9,8 +11,10 @@ import {
   Text,
   theme
 } from '@hackclub/design-system'
-import { Headline, Lead } from 'components/Content'
+import { Title, Lead } from 'components/Content'
 import { Fade } from 'react-reveal'
+import { timeSince } from 'helpers'
+import Run from 'components/bank/Run'
 
 const Base = styled(Box.section).attrs({
   bg: 'dark',
@@ -50,11 +54,12 @@ const Percentage = styled(Flex).attrs({
   }
 `
 
-const List = styled(Text.withComponent('ol')).attrs({ pl: 0 })`
+const List = styled(Container.withComponent('ol')).attrs({ pl: 0 })`
   list-style: none;
   ${theme.mediaQueries.md} {
-    column-count: 2;
-    column-gap: ${theme.space[4]}px;
+    display: grid;
+    grid-column-gap: ${theme.space[4]}px;
+    grid-template-columns: repeat(2, 1fr);
   }
   li {
     line-height: 1.25;
@@ -65,51 +70,99 @@ const List = styled(Text.withComponent('ol')).attrs({ pl: 0 })`
   }
 `
 
-List.Item = props => (
+List.Item = ({ icon = 'enter', start, ...props }) => (
   <Fade left>
-    <li>
-      <Icon glyph="enter" color="muted" size={32} mr={2} />
+    <li style={{ display: 'flex', alignItems: 'center' }}>
+      {start || <Icon glyph={icon} color="muted" size={32} mr={2} />}
       <Text.span fontSize={3} {...props} />
     </li>
   </Fade>
 )
 
+const recent = dt => {
+  const past = new Date()
+  past.setMonth(past.getMonth() - 2)
+  return new Date(dt) > past
+}
+
 export default () => (
   <Base>
+    <Container align="center" mb={[4, 5]} px={3}>
+      <Title>Everything you’ll&nbsp;need.</Title>
+    </Container>
     <Container px={3}>
-      <Container align="center" mb={[4, 5]}>
-        <Headline>Everything you’ll need.</Headline>
-      </Container>
       <List>
-        {[
-          'Physical debit cards',
-          'G Suite accounts & email addresses',
-          'Automated tax filings',
-          'Legal entity with 501(c)(3) status',
-          'Bank account backed by Silicon Valley Bank',
-          'Instant invoice sending',
-          'Collect donations via card, check, or ACH',
-          'Real-time dashboard of finances',
-          'Share access with your whole team',
-          'Pre-written legal forms for event attendees',
-          'Record shared notes on transactions',
-          'Transaction data export',
-          'Dedicated point of contact',
-          '24-hour response support',
-          'Negotiated nonprofit rates with Stripe',
-          'Reimbursement process'
-        ].map(item => (
-          <List.Item key={item} children={item} />
+        {Object.entries({
+          'Legal entity with 501(c)(3) status': 'briefcase',
+          'We do your taxes': 'checkmark',
+          'Collect donations via card, check, or ACH': 'enter',
+          'Share access with your whole team': 'member-add',
+          'Bank account backed by Silicon Valley Bank': 'bank-account',
+          'Negotiated nonprofit rates with Stripe': 'enter',
+          'Instant invoice sending': 'transactions',
+          'Real-time dashboard of finances': 'analytics',
+          'Transaction data export': 'download',
+          'Record shared notes on transactions': 'docs',
+          '24-hour response support': 'clock',
+          'Reimbursement process': 'enter'
+        }).map(([item, icon = 'enter']) => (
+          <List.Item icon={icon}>{item}</List.Item>
+        ))}
+        <List.Item
+          start={
+            <Avatar
+              src={require('../../../static/hackers/michael.jpg')}
+              size={32}
+              alt="Michael’s avatar"
+              mr={2}
+            />
+          }
+        >
+          Dedicated point of contact
+        </List.Item>
+        {Object.entries({
+          'Physical check sending & voiding': '2019-09-18',
+          'Online ACH transfers': '2019-09-18',
+          'Generate attendee legal waivers': '2020-01-15',
+          'Instant G Suite & email addresses': '2020-01-15',
+          'Virtual debit cards (with Apple Pay)': '2020-03-08',
+          'Debit card transaction paper trail': '2020-03-10',
+          'Online donation form': '2020-03-10',
+          'Self-serve, no-contract signup': '2020-05-05',
+          'Transparency Mode (optional)': '2020-05-15'
+        }).map(([item, date]) => (
+          <List.Item
+            key={item}
+            icon={
+              item.startsWith('Instant') || item.includes('signup')
+                ? 'bolt'
+                : item.includes('card')
+                ? 'card'
+                : item.includes('Transparency')
+                ? 'explore'
+                : item.includes('form')
+                ? 'link'
+                : item.includes('Physical')
+                ? 'email'
+                : 'enter'
+            }
+          >
+            {item}{' '}
+            <Badge bg={recent(date) ? 'primary' : 'slate'} fontSize={0} ml={1}>
+              Added {timeSince(date)}
+            </Badge>
+          </List.Item>
         ))}
       </List>
     </Container>
+    <Run />
     <Container px={3} mt={4}>
       <Flex justify="center" align="center" wrap>
-        <Text fontSize={[4, 5]} mr={3}>
+        <Text fontSize={[4, 5]} mr={[2, 3]}>
           You pay just
         </Text>
         <Percentage>7</Percentage>
-        <Text fontSize={[4, 5]} ml={3} mr={2}>
+        <Text fontSize={[4, 5]} ml={[2, 3]} mr={2}>
           of revenue.
         </Text>
         <Text fontSize={[4, 5]} mt={[3, 0]}>
@@ -125,9 +178,9 @@ export default () => (
         >
           fiscal sponsor
         </A>{' '}
-        for your event.
+        for your&nbsp;project.
         <br />
-        Industry standard varies between 7-14% of revenue.
+        Industry standard varies between 7-14% of&nbsp;revenue.
       </Lead>
     </Container>
   </Base>
